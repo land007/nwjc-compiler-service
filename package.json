@@ -1,6 +1,6 @@
 {
   "name": "nwjc-compiler-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Distributed nwjc compilation service for NW.js multi-platform builds",
   "main": "lib/server.js",
   "bin": {

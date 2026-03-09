@@ -14,35 +14,100 @@ npx nwjc-compiler-service
 
 ## 使用
 
-### 启动服务
+### 🚀 快速开始（交互式配置）
 
+**第一次运行：**
 ```bash
-# 默认配置（端口 3001）
 npx nwjc-compiler-service
+```
+
+服务会自动询问 nwjc 路径：
+```
+❓ 未找到 nwjc 工具，需要配置 nwjc 路径
+
+请输入 nwjc.exe 的完整路径:
+  Windows 示例: C:\Users\YourName\Desktop\nwjs-sdk-v0.109.0-win-x64\nwjc.exe
+  macOS 示例: /path/to/nwjs-sdk/nwjc
+  Linux 示例: /path/to/nwjs-sdk/nwjc
+
+💡 提示: 按 Enter 跳过，稍后通过环境变量 NWJC_PATH 指定
+
+nwjc 路径: C:\Users\jiayq\Desktop\nwjs-sdk-v0.109.0-win-x64\nwjc.exe
+✅ 配置已保存到: C:\Users\jiayq\.nwjc-compiler-service.json
+```
+
+**以后每次运行：**
+```bash
+npx nwjc-compiler-service
+# 自动使用保存的配置，无需再次输入！
+```
+
+### ⚙️ 高级用法
+
+**使用 CLI 参数（跳过交互式询问）：**
+```bash
+# 指定 nwjc 路径
+npx nwjc-compiler-service --nwjc-path "C:\Users\jiayq\Desktop\nwjs-sdk-v0.109.0-win-x64\nwjc.exe"
 
 # 指定端口
 npx nwjc-compiler-service --port 4000
 
-# 指定 nwjc 路径（Windows 示例）
-npx nwjc-compiler-service --nwjc-path "C:\Users\jiayq\Desktop\nwjs-sdk-v0.109.0-win-x64\nwjc.exe"
-
-# 指定 nwjc 路径（macOS/Linux 示例）
-npx nwjc-compiler-service --nwjc-path "/path/to/nwjs-sdk/nwjc"
-
 # 组合参数
-npx nwjc-compiler-service --port 4000 --nwjc-path "C:\path\to\nwjc.exe"
-
-# 使用环境变量
-NWJC_PATH="C:\Users\jiayq\Desktop\nwjs-sdk-v0.109.0-win-x64\nwjc.exe" npx nwjc-compiler-service
+npx nwjc-compiler-service --nwjc-path "C:\path\to\nwjc.exe" --port 4000
 ```
+
+**使用环境变量：**
+```bash
+# Windows (CMD)
+set NWJC_PATH=C:\Users\jiayq\Desktop\nwjs-sdk-v0.109.0-win-x64\nwjc.exe
+npx nwjc-compiler-service
+
+# Windows (PowerShell)
+$env:NWJC_PATH="C:\Users\jiayq\Desktop\nwjs-sdk-v0.109.0-win-x64\nwjc.exe"
+npx nwjc-compiler-service
+
+# macOS/Linux
+export NWJC_PATH=/path/to/nwjc
+npx nwjc-compiler-service
+```
+
+### 📋 配置文件
+
+配置保存在 `~/.nwjc-compiler-service.json`：
+
+```json
+{
+  "nwjcPath": "C:\\Users\\jiayq\\Desktop\\nwjs-sdk-v0.109.0-win-x64\\nwjc.exe",
+  "port": 3001,
+  "host": "0.0.0.0"
+}
+```
+
+**修改已保存的配置：**
+```bash
+# 方式一：使用 CLI 参数覆盖
+npx nwjc-compiler-service --nwjc-path "C:\new\path\to\nwjc.exe"
+
+# 方式二：直接编辑配置文件
+# Windows: notepad C:\Users\jiayq\.nwjc-compiler-service.json
+# macOS/Linux: vi ~/.nwjc-compiler-service.json
+```
+
+**配置优先级（从高到低）：**
+1. CLI 参数（如 `--nwjc-path`）
+2. 环境变量（如 `NWJC_PATH`）
+3. 配置文件（`~/.nwjc-compiler-service.json`）
+4. 交互式输入
+5. 默认值
 
 ### CLI 参数
 
-| 参数 | 短参数 | 说明 | 示例 |
-|------|--------|------|------|
-| `--port` | `-p` | 指定端口号 | `--port 4000` |
-| `--host` | `-h` | 指定监听地址 | `--host 127.0.0.1` |
-| `--nwjc-path` | `-n` | 指定 nwjc 工具路径 | `--nwjc-path "C:\path\to\nwjc.exe"` |
+| 参数 | 说明 | 示例 |
+|------|------|------|
+| `--nwjc-path` / `-n` | 指定 nwjc 工具路径 | `--nwjc-path "C:\path\to\nwjc.exe"` |
+| `--port` / `-p` | 指定端口号（默认：3001） | `--port 4000` |
+| `--host` | 指定监听地址（默认：0.0.0.0） | `--host 127.0.0.1` |
+| `--help` | 显示帮助信息 | `--help` |
 
 ### API
 
